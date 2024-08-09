@@ -1,0 +1,48 @@
+  118  cd Desktop
+  119  mkdir Encryption
+  120  cd Encryption
+
+  121  #Symetric Encryption
+
+  122  echo -n Nayab Irfan > name.txt
+  123  ls
+  124  name.txt
+  125  hexdump name.txt
+  126  openssl aes-128-cbc -e -a -salt -S e0e0e0e0f0f0f0f0 -in name.txt -out name.txt.aes
+  127  ls
+  128  cat name.txt.aes
+
+  129  #Asymetric Encryption
+
+  130  openssl rsa -out privname-key.pem
+  131  openssl genrsa -out privname-key.pem 1022
+  132  ls
+  133  cat privname-key.pem
+  134  echo U2FsdGVkX1/g4ODg8PDw8LduqQvEATd+LverODjVj7w= | hexdump
+  135  echo U2FsdGVkX1/g4ODg8PDw8MR/5qRzpNU0PKdRvdDG+7o= | hexdump
+  136  echo -n U2FsdGVkX1/g4ODg8PDw8MR/5qRzpNU0PKdRvdDG+7o= | hexdump
+  137  openssl genrsa -out privname-key.pem 1022
+  138  openssl rsa -in privname-key.pem -out pubname-key.pem -outform PEM -pubout
+  139  ls
+  140  cat pubname-key.pem
+  141  openssl rsautl -encrypt -inkey pubname-key.pem -pubin -in asymmetricenc.txt -out asymmetricenc.txt.rsa
+  142  openssl rsautl -encrypt -inkey pubname-key.pem pubin -in asymmetricenc.txt -out asymmetricenc.txt.rsa
+  143  ls
+  144  echo -n U2FsdGVkX1/g4ODg8PDw8MR/5qRzpNU0PKdRvdDG+7o= > asymmetricenc.txt
+  145  openssl rsautl -encrypt -inkey pubname-key.pem pubin -in asymmetricenc.txt -out asymmetricenc.txt.rsa
+  146  ls
+  147  openssl rsautl -encrypt -inkey pubname-key.pem -pubin -in asymmetricenc.txt -out asymmetricenc.txt.rsa
+  148  ls
+  149  cat asymmetricenc.txt.rsa
+
+  150  #Asymetric Decryption
+
+  151  openssl rsautl -decrypt -inkey privname-key.pem -in asymmetricenc.txt.rsa -out asymmetricenc.txt.rsa.dec
+  152  ls
+  153  cat asymmetricenc.txt.rsa.dec
+
+  154  #Symetric Decryption
+  
+  155  openssl aes-128-cbc -d -a -salt -S e0e0e0e0f0f0f0f0 -in name.txt.aes -out decname.txt.aes.dec
+  156  ls
+  157  cat decname.txt.aes.dec  

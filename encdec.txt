@@ -1,0 +1,197 @@
+┌──(root㉿kali)-[/home/kali]
+└─# cd Desktop  
+                                               
+┌──(root㉿kali)-[/home/kali/Desktop]
+└─# mkdir Encryption
+                                               
+┌──(root㉿kali)-[/home/kali/Desktop]
+└─# cd Encryption
+                                               
+┌──(root㉿kali)-[/home/kali/Desktop/Encryption]
+└─# #Symetric Encryption
+                                               
+┌──(root㉿kali)-[/home/kali/Desktop/Encryption]
+└─# echo -n Nayab Irfan > name.txt
+                                               
+┌──(root㉿kali)-[/home/kali/Desktop/Encryption]
+└─# ls
+name.txt
+                                                           
+┌──(root㉿kali)-[/home/kali/Desktop/Encryption]
+└─# name.txt                  
+name.txt: command not found
+                                                           
+┌──(root㉿kali)-[/home/kali/Desktop/Encryption]
+└─# hexdump name.txt
+0000000 614e 6179 2062 7249 6166 006e          
+000000b
+                                                           
+┌──(root㉿kali)-[/home/kali/Desktop/Encryption]
+└─# openssl aes-128-cbc -e -a -salt -S e0e0e0e0f0f0f0f0 -in name.txt -out name.txt.aes
+enter aes-128-cbc encryption password:
+Verifying - enter aes-128-cbc encryption password:
+*** WARNING : deprecated key derivation used.
+Using -iter or -pbkdf2 would be better.
+                                                           
+┌──(root㉿kali)-[/home/kali/Desktop/Encryption]
+└─# ls
+name.txt  name.txt.aes
+                                                           
+┌──(root㉿kali)-[/home/kali/Desktop/Encryption]
+└─# cat name.txt.aes
+U2FsdGVkX1/g4ODg8PDw8MR/5qRzpNU0PKdRvdDG+7o=
+                                                           
+┌──(root㉿kali)-[/home/kali/Desktop/Encryption]
+└─# #Asymetric Encryption
+                                                           
+┌──(root㉿kali)-[/home/kali/Desktop/Encryption]
+└─# openssl rsa -out privname-key.pem
+^C
+                                                           
+┌──(root㉿kali)-[/home/kali/Desktop/Encryption]
+└─# openssl genrsa -out privname-key.pem 1022
+Generating RSA private key, 1022 bit long modulus (2 primes)
+..+++++
+.........................+++++
+e is 65537 (0x010001)
+                                                           
+┌──(root㉿kali)-[/home/kali/Desktop/Encryption]
+└─# ls
+name.txt  name.txt.aes  privname-key.pem
+                                                           
+┌──(root㉿kali)-[/home/kali/Desktop/Encryption]
+└─# cat privname-key.pem
+-----BEGIN RSA PRIVATE KEY-----
+MIICWAIBAAKBgC3mD+qMEUyEJ/HUTIK2U5N9bs4QR/u+7p2r0jn9UO7R5V1EEh4A
+H21PNntU6RtHiHYdXGosklUqCQq99VD83WYTDk9o9BEw7VUs4/BOkqJ8CSyeVn2t
+nE8N1k4uLhPFOyoKBkOWGiB5Vb5Dc2mY3D3BpHIW1JUH6ZDEnauLEHb9AgMBAAEC
+gYAYYTqVED9kEFKTXnwhdi1gi2De7cD+lIV0lL6+9LIXmMAnUS/6ZYBL9KZwzkJf
+rhhq/N+IuhIkUIarAQmcMiR7T3nfDpA6x6kGqmHknw6I0h0F3sDb4pPCZ8xo33gf
+3z2LTjVLbTHs6ioTJcq9GIoKGHlg+/nHw3+/8SyEftQvIQJAbjjpgT0vbR1lmtHL
+3vfgvTAjvDMj/bxbj4nuDITwJ/KTQIcvuUGkFK+Q7ibdjQUEPR3KewF7DAe54LTw
+Nt8oRQJAappxyxkOI8TFIpDBjfIq1jKocdZR43kbCf8JM2YICMJYWn2hrG6Dla+H
+cVVSOiIVbYbMZevqchRG+R1aHwaLWQJAJYBjoj9JFZz85vIepVw9MOFiJzRXOIuP
+s4TAY64Pb+gOxdO5HxUAWLFrZDwBAWwFhy3NqJBWZz9xtMybNnAy6QJATX19EExj
+Od70Cd89w0fwmYlzZmSLXBYRcJ/B+WnGl09mWEkQd75RykIw61JBFl7mQpqFA+WM
+o2ZX/Qe4Fet06QJATCU2iWH7oilvOJNCBCJFgHVRdlE0L69aFIaGH4LHrAKa6c8q
+gmBe1cNp1GsBwRvwA3HNF6jCr6BmKAp5HdxJog==
+-----END RSA PRIVATE KEY-----
+                                                           
+┌──(root㉿kali)-[/home/kali/Desktop/Encryption]
+└─# echo U2FsdGVkX1/g4ODg8PDw8LduqQvEATd+LverODjVj7w= | hexdump
+0000000 3255 7346 4764 6b56 3158 672f 4f34 6744
+0000010 5038 7744 4c38 7564 5171 4576 5441 2b64
+0000020 764c 7265 444f 566a 376a 3d77 000a     
+000002d
+                                                           
+┌──(root㉿kali)-[/home/kali/Desktop/Encryption]
+└─# echo U2FsdGVkX1/g4ODg8PDw8MR/5qRzpNU0PKdRvdDG+7o= | hexdump
+0000000 3255 7346 4764 6b56 3158 672f 4f34 6744
+0000010 5038 7744 4d38 2f52 7135 7a52 4e70 3055
+0000020 4b50 5264 6476 4744 372b 3d6f 000a     
+000002d
+                                                           
+┌──(root㉿kali)-[/home/kali/Desktop/Encryption]
+└─# echo -n U2FsdGVkX1/g4ODg8PDw8MR/5qRzpNU0PKdRvdDG+7o= | hexdump 
+0000000 3255 7346 4764 6b56 3158 672f 4f34 6744
+0000010 5038 7744 4d38 2f52 7135 7a52 4e70 3055
+0000020 4b50 5264 6476 4744 372b 3d6f          
+000002c
+                                                           
+┌──(root㉿kali)-[/home/kali/Desktop/Encryption]
+└─# openssl genrsa -out privname-key.pem 1022
+Generating RSA private key, 1022 bit long modulus (2 primes)
+............................+++++
+.+++++
+e is 65537 (0x010001)
+                                                           
+┌──(root㉿kali)-[/home/kali/Desktop/Encryption]
+└─# openssl rsa -in privname-key.pem -out pubname-key.pem -outform PEM -pubout
+writing RSA key
+                                                           
+┌──(root㉿kali)-[/home/kali/Desktop/Encryption]
+└─# ls
+name.txt  name.txt.aes  privname-key.pem  pubname-key.pem
+                                                           
+┌──(root㉿kali)-[/home/kali/Desktop/Encryption]
+└─# cat pubname-key.pem
+-----BEGIN PUBLIC KEY-----
+MIGeMA0GCSqGSIb3DQEBAQUAA4GMADCBiAKBgDEn8xfdIPYtheLnAoQL1vtlMCoH
+sB4bNFXJw0yS6VYQU7SvI8CjoA1hOXGdvmVkey/udwqocZ/yKbHqHUXp3JuCpWSH
+TEdSZhCFS7oV7ZjOG9ovVGWvZ5xELHDIpPnbfezygFZDkP5ODc3jP4iWkQ5LunEQ
+doa/fTIIzH6r1OztAgMBAAE=
+-----END PUBLIC KEY-----
+                                                           
+┌──(root㉿kali)-[/home/kali/Desktop/Encryption]
+└─# openssl rsautl -encrypt -inkey pubname-key.pem -pubin -in asymmetricenc.txt -out asymmetricenc.txt.rsa
+Can't open asymmetricenc.txt for reading, No such file or directory
+140401902962048:error:02001002:system library:fopen:No such file or directory:../crypto/bio/bss_file.c:69:fopen('asymmetricenc.txt','rb')
+140401902962048:error:2006D080:BIO routines:BIO_new_file:no such file:../crypto/bio/bss_file.c:76:
+                                                           
+┌──(root㉿kali)-[/home/kali/Desktop/Encryption]
+└─# openssl rsautl -encrypt -inkey pubname-key.pem pubin -in asymmetricenc.txt -out asymmetricenc.txt.rsa
+rsautl: Use -help for summary.
+                                                           
+┌──(root㉿kali)-[/home/kali/Desktop/Encryption]
+└─# ls
+name.txt  name.txt.aes  privname-key.pem  pubname-key.pem
+                                                           
+┌──(root㉿kali)-[/home/kali/Desktop/Encryption]
+└─# echo -n U2FsdGVkX1/g4ODg8PDw8MR/5qRzpNU0PKdRvdDG+7o= > asymmetricenc.txt
+                                                           
+┌──(root㉿kali)-[/home/kali/Desktop/Encryption]
+└─# openssl rsautl -encrypt -inkey pubname-key.pem pubin -in asymmetricenc.txt -out asymmetricenc.txt.rsa
+rsautl: Use -help for summary.
+                                                           
+┌──(root㉿kali)-[/home/kali/Desktop/Encryption]
+└─# ls
+asymmetricenc.txt  name.txt.aes      pubname-key.pem
+name.txt           privname-key.pem
+                                                           
+┌──(root㉿kali)-[/home/kali/Desktop/Encryption]
+└─# openssl rsautl -encrypt -inkey pubname-key.pem -pubin -in asymmetricenc.txt -out asymmetricenc.txt.rsa
+                                                           
+┌──(root㉿kali)-[/home/kali/Desktop/Encryption]
+└─# ls
+asymmetricenc.txt      name.txt      privname-key.pem
+asymmetricenc.txt.rsa  name.txt.aes  pubname-key.pem
+                                                           
+┌──(root㉿kali)-[/home/kali/Desktop/Encryption]
+└─# cat asymmetricenc.txt.rsa
+�
+�]Y�Ȏ5�h�C��;i�F@�������B|��▒x�.��������8��~`_��WX����Ev��0r����rc��4���/                                                           
+┌──(root㉿kali)-[/home/kali/Desktop/Encryption]
+└─# #Asymetric Decryption  
+                                                           
+┌──(root㉿kali)-[/home/kali/Desktop/Encryption]
+└─# openssl rsautl -decrypt -inkey privname-key.pem -in asymmetricenc.txt.rsa -out asymmetricenc.txt.rsa.dec
+                                                           
+┌──(root㉿kali)-[/home/kali/Desktop/Encryption]
+└─# ls
+asymmetricenc.txt          name.txt.aes
+asymmetricenc.txt.rsa      privname-key.pem
+asymmetricenc.txt.rsa.dec  pubname-key.pem
+name.txt
+                                                           
+┌──(root㉿kali)-[/home/kali/Desktop/Encryption]
+└─# cat asymmetricenc.txt.rsa.dec
+U2FsdGVkX1/g4ODg8PDw8MR/5qRzpNU0PKdRvdDG+7o=                                                           
+┌──(root㉿kali)-[/home/kali/Desktop/Encryption]
+└─# #Symetric Decryption
+                                                           
+┌──(root㉿kali)-[/home/kali/Desktop/Encryption]
+└─# openssl aes-128-cbc -d -a -salt -S e0e0e0e0f0f0f0f0 -in name.txt.aes -out decname.txt.aes.dec
+enter aes-128-cbc decryption password:
+*** WARNING : deprecated key derivation used.
+Using -iter or -pbkdf2 would be better.
+                                                           
+┌──(root㉿kali)-[/home/kali/Desktop/Encryption]
+└─# ls
+asymmetricenc.txt          name.txt
+asymmetricenc.txt.rsa      name.txt.aes
+asymmetricenc.txt.rsa.dec  privname-key.pem
+decname.txt.aes.dec        pubname-key.pem
+                                                           
+┌──(root㉿kali)-[/home/kali/Desktop/Encryption]
+└─# cat decname.txt.aes.dec    
+Nayab Irfan 
